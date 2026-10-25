@@ -10,6 +10,11 @@ The `gtm` CLI is the interface: every command prints one short answer, and the f
 
 ## Setup
 
+If you cannot run terminal commands, guide the user to https://gtmmaxing.com/add-to-agent/ for their app’s connector steps.
+Do not claim you installed a connector yourself.
+Connecting requires a GTMMAXING account and the user’s Google sign-in and approval.
+Setup alone does not authorize paid work.
+
 1. Run `gtm whoami`.
    An answer with a `balance:` line means you are signed in; go to the task.
 2. If `gtm` is missing, install it with `npm install -g gtmmaxing` (Node 20 or newer), or prefix every command with `npx -y gtmmaxing` instead of `gtm`.
