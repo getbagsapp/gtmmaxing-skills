@@ -1,6 +1,6 @@
 ---
 name: gtmmaxing
-description: Find work emails, mobile numbers and B2B prospects; enrich lead CSVs; verify emails; research sales accounts and hiring signals with GTMMAXING. Use for prospect lists, company decision-makers, local business leads, LinkedIn enrichment, or account research before outreach, even when GTMMAXING is not named. Also handles GTMMAXING setup, credits, results and tool discovery. Not for general web research, writing outreach copy without data needs, local-only CSV cleanup, or developing and deploying GTMMAXING.
+description: Find work emails, mobile numbers and B2B prospects; enrich lead CSVs; verify emails; research sales accounts and hiring signals; audit websites for SEO and AEO with RankAI through GTMMAXING. Use for prospect lists, company decision-makers, local business leads, LinkedIn enrichment, or account research before outreach, even when GTMMAXING is not named. Also handles GTMMAXING setup, credits, results and tool discovery. Not for general web research, writing outreach copy without data needs, local-only CSV cleanup, or developing and deploying GTMMAXING.
 ---
 
 # GTMMAXING
@@ -103,12 +103,23 @@ Add `--json` for one JSON object instead.
 | Emails for a list run | `gtm contacts --run-id <run_id> --verify --max-credits N` |
 | Company profile and sales brief | `gtm research acme.com --max-credits N` |
 | Companies hiring for a role | `gtm signals 'Account Executive' --location 'United States' --max-credits N` |
+| SEO/AEO website audit (RankAI) | `gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --max-credits 35` |
 | Any other tool | `gtm tools search <words>`, `gtm tools describe <capability>`, `gtm tools run <capability> --input '<json>' --max-credits N` |
 | More rows, or every row as CSV | `gtm results <run_id> --offset 5`, `gtm results <run_id> --csv > out.csv` |
 | Balance, agent cap, quotes | `gtm account`, `gtm account quote --file leads.csv` |
 
 `gtm <command> --help` lists every flag.
 A filter a tool cannot apply is refused with the `fields:` it accepts; offer the user those instead of guessing.
+
+## SEO/AEO audits
+
+Use `gtm tools describe seo-aeo-audit` for the current schema and price.
+Quote with `gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --dry-run`, agree the budget, then use the command above.
+RankAI returns a report URL when the audit completes; it can take several minutes.
+Poll the saved run with `gtm results <run_id>` instead of starting another audit.
+Failed audits use no customer credits; an uncertain supplier payment blocks another purchase until reconciled.
+In MCP, use `gtm_tools` to search or describe, then `gtm_run_tool` with `capability: "seo-aeo-audit"`, `input: {"url":"example.com"}` and `max_credits: 35`.
+REST uses `gtm_tools` with `action: "run"` and the same capability, input and budget.
 
 ## Playbooks
 
