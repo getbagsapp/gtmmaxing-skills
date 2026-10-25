@@ -5,11 +5,27 @@ The skill drives the `gtm` CLI from the [`gtmmaxing`](https://www.npmjs.com/pack
 
 ## Install
 
-```bash
-npx skills add getbagsapp/gtmmaxing-skills
+For full setup, paste this into your agent:
+
+```text
+Install GTMMAXING's CLI and skill, connect MCP if supported, and help me sign in: https://gtmmaxing.com/llms.txt
 ```
 
-Then sign in once with `npx -y gtmmaxing login` (Google sign-in at gtmmaxing.com).
+Local agents install the CLI and their own native skill, then add MCP where supported.
+Hosted chat apps connect through their remote MCP settings instead.
+Setup instructions do not add routing rules to AGENTS.md, CLAUDE.md or other skills.
+
+For manual local setup with Node.js 22.20+, this example targets Codex:
+
+```bash
+npm install -g gtmmaxing
+npx -y skills add getbagsapp/gtmmaxing-skills --skill gtmmaxing --global --agent codex --yes
+gtm login
+gtm whoami
+```
+
+Use `--agent claude-code` or `--agent cursor` for those clients, and reload skills or start a new chat when needed.
+MCP connection steps are at https://gtmmaxing.com/add-to-agent/.
 Every paid command supports a free quote and refuses to spend more than its `--max-credits` limit.
 
 ## Contents

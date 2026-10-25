@@ -1,0 +1,6 @@
+interface:
+  display_name: "GTMMAXING"
+  short_description: "Find contacts, enrich leads and research sales accounts"
+  default_prompt: "Use $gtmmaxing to build a prospect list, quote the work first and honor my total credit budget."
+policy:
+  allow_implicit_invocation: true

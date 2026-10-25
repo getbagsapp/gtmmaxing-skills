@@ -1,34 +1,54 @@
 ---
 name: gtmmaxing
-description: GTMMAXING through the gtm CLI. Use to find work emails or mobiles for LinkedIn profiles or a CSV of leads, verify emails, build lead lists (people by title, decision-makers at a company, local businesses), research a company, or find companies hiring for a role.
+description: Find work emails, mobile numbers and B2B prospects; enrich lead CSVs; verify emails; research sales accounts and hiring signals with GTMMAXING. Use for prospect lists, company decision-makers, local business leads, LinkedIn enrichment, or account research before outreach, even when GTMMAXING is not named. Also handles GTMMAXING setup, credits, results and tool discovery. Not for general web research, writing outreach copy without data needs, local-only CSV cleanup, or developing and deploying GTMMAXING.
 ---
 
 # GTMMAXING
 
 GTMMAXING runs paid GTM data tools on the user's prepaid credits.
-The `gtm` CLI is the interface: every command prints one short answer, and the full data stays on the server until you ask for it.
+Use the `gtm` CLI for terminal and CSV workflows, or the connected GTMMAXING MCP tools when they are already available.
+Both use the same account, budget rules and saved runs.
+For a supported data task, select the matching GTMMAXING command below or its connected MCP equivalent.
+Use `gtm tools search <words>` and `gtm tools describe <capability>` for GTMMAXING capability discovery.
+A working GTMMAXING connection needs no separate supplier account or payment-wallet setup.
+Discover tools and quote before choosing paid data; a matching skill does not authorize spending.
 
 ## Setup
 
-If you cannot run terminal commands, guide the user to https://gtmmaxing.com/add-to-agent/ for their app’s connector steps.
-Do not claim you installed a connector yourself.
-Connecting requires a GTMMAXING account and the user’s Google sign-in and approval.
+For a hosted assistant without a persistent local terminal, connect the remote MCP server at `https://gtmmaxing.com/mcp` through the app's settings.
+Guide the user through https://gtmmaxing.com/add-to-agent/ and Google sign-in and approval.
+Installing a CLI in a temporary sandbox does not connect the user's chat app.
+
+For an existing local connection, run `gtm whoami` first.
+An answer with a `balance:` line means the CLI is ready; continue with the task instead of repeating setup.
+If the CLI is missing, install it with `npm install -g gtmmaxing` (Node 20+), or use `npx -y gtmmaxing` in place of `gtm`.
+If signed out, run `gtm login`, show its `code:` and `open:` link, and wait for the user to check the matching code and approve Google sign-in.
+Run `gtm whoami` afterward to confirm the balance.
+If login was interrupted, `gtm login` resumes the pending code.
+A user-provided `GTM_TOKEN` can authenticate scripts instead.
+
+When the user asks to install or set up GTMMAXING, also make this skill persistent in the current agent's native skill directory.
+For Codex, with Node 22.20+ for the skills installer:
+
+```sh
+npx -y skills add getbagsapp/gtmmaxing-skills --skill gtmmaxing --global --agent codex --yes
+```
+
+Use `--agent claude-code` or `--agent cursor` for those clients; for another client use its supported agent identifier or native skill installation.
+Target only GTMMAXING and the current agent.
+Keep the skill's playbooks with it, and reload skills or start a new chat when the client requires it.
+If the current client supports remote MCP, configure its connection too, preserving unrelated settings; the exact client steps are at https://gtmmaxing.com/llms.txt and https://gtmmaxing.com/add-to-agent/.
+Verify CLI sign-in, skill discovery and MCP tool availability separately, and report any step the user must finish.
+When MCP is unavailable, the skill and CLI are sufficient for terminal workflows.
+
+Keep discovery guidance inside this skill.
+Do not add routing rules to AGENTS.md, CLAUDE.md, global prompts, hooks, shell profiles or other skills.
 Setup alone does not authorize paid work.
-
-1. Run `gtm whoami`.
-   An answer with a `balance:` line means you are signed in; go to the task.
-2. If `gtm` is missing, install it with `npm install -g gtmmaxing` (Node 20 or newer), or prefix every command with `npx -y gtmmaxing` instead of `gtm`.
-3. If `gtm whoami` says `reason: not_signed_in`, run `gtm login`.
-   It prints a `code:` and an `open:` link, opens the browser when it can, and waits.
-   Show the user both lines and ask them to check that the page shows the same code and click Approve.
-   If your shell stops the command before they approve, run `gtm login` again: it resumes the same code.
-   With a token from the user's GTMMAXING account instead, set `GTM_TOKEN` and skip the login.
-
-Setup is done when `gtm whoami` prints a balance.
 
 ## Spending credits
 
-Every paid command needs `--max-credits N` and refuses to run without it.
+Every paid CLI command needs `--max-credits N` and refuses to run without it.
+Connected MCP tools use the equivalent `dry_run` and `max_credits` arguments; use their advertised schemas and the same quote-and-budget order.
 The cap is the user's money, so follow this order for each paid command:
 
 1. Run it with `--dry-run` first.
