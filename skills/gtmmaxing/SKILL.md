@@ -98,6 +98,8 @@ Add `--json` for one JSON object instead.
 | --- | --- |
 | Emails for LinkedIn profiles | `gtm contacts <profile>... --max-credits N` |
 | Emails for a CSV of any length | `gtm contacts --file leads.csv --out enriched.csv --max-credits N` |
+| Emails from names and companies (no LinkedIn URLs) | `gtm contacts --file names.csv --out emails.csv --max-credits N`, with `name` and `company` columns: each profile is found first |
+| LinkedIn profile from a name and company | `gtm tools run profile-finder --input '{"name":"Pedro Reis","company":"Adyen"}' --max-credits 1`, or `--file names.csv` for a list |
 | Mailbox check too | add `--verify` (extra credits per email; finding and verifying are separate choices) |
 | Mobiles too | add `--find email,phone` |
 | People by title | `gtm list --titles 'VP Sales' --location 'United States' --max-credits N` |
