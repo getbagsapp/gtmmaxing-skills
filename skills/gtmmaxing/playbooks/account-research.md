@@ -25,9 +25,9 @@ Quote each paid step with `--dry-run` and agree the budget with the user before 
 4. Work emails for the people worth contacting, from the list run:
 
    ```sh
-   gtm contacts --run-id <run_id> --verify --dry-run
+   gtm contacts --run-id <run_id> --dry-run
    ```
 
-5. Write the user a short account brief: what the company does and who it sells to, recent hiring, the people to contact with their verified emails, and the credits spent.
+5. Write the user a short account brief: what the company does and who it sells to, recent hiring, the people to contact with their emails, and the credits spent.
 
 The playbook is done when the brief covers every step the user wanted and names the run ids holding the full rows.

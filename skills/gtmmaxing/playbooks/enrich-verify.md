@@ -1,6 +1,7 @@
 # Enrich and verify a lead list
 
-A CSV or list of LinkedIn profiles in, a CSV of verified work emails out, in one command.
+A CSV or list of LinkedIn profiles in, a CSV of work emails out, in one command.
+`--verify` adds a mailbox check on each found email for extra credits; include it when the user wants verified emails, and leave it out when they asked to skip verification.
 The CLI reads the profile column, drops duplicates, and runs the file in batches that share one `--max-credits` budget, so the file can be any length.
 
 1. Quote the file:

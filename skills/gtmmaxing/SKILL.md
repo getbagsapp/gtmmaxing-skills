@@ -59,6 +59,8 @@ The cap is the user's money, so follow this order for each paid command:
 4. When the answer says `status: refused`, nothing beyond what it reports was charged.
    Read `reason:` and the summary, tell the user, and ask before raising the budget yourself.
 
+For a plan of several paid commands, quote each one, then agree one total budget with the user and run the plan within it.
+
 Misses are free, profiles the user already paid for are free, and rerunning the same command replays earlier results for free (`replayed: true`).
 `gtm account` and `gtm results <run_id>` are always free.
 
@@ -94,13 +96,16 @@ Add `--json` for one JSON object instead.
 
 | Job | Command |
 | --- | --- |
-| Emails for LinkedIn profiles | `gtm contacts <profile>... --verify --max-credits N` |
-| Emails for a CSV of any length | `gtm contacts --file leads.csv --verify --out enriched.csv --max-credits N` |
+| Emails for LinkedIn profiles | `gtm contacts <profile>... --max-credits N` |
+| Emails for a CSV of any length | `gtm contacts --file leads.csv --out enriched.csv --max-credits N` |
+| Mailbox check too | add `--verify` (extra credits per email; finding and verifying are separate choices) |
 | Mobiles too | add `--find email,phone` |
 | People by title | `gtm list --titles 'VP Sales' --location 'United States' --max-credits N` |
 | Decision-makers at a company | `gtm list --company acme.com --titles 'Head of Sales' --max-credits N` |
 | Local businesses | `gtm list --business-type Dentists --location Austin --max-credits N` |
-| Emails for a list run | `gtm contacts --run-id <run_id> --verify --max-credits N` |
+| Emails for a list run | `gtm contacts --run-id <run_id> --max-credits N` |
+| Current role for a CSV of profiles | `gtm tools run linkedin-profile --file leads.csv --out roles.csv --max-credits N` |
+| Recent LinkedIn posts, with dates and topics | `gtm tools run linkedin-activity --file leads.csv --input '{"topics":["automation"]}' --out activity.csv --max-credits N` |
 | Company profile and sales brief | `gtm research acme.com --max-credits N` |
 | Companies hiring for a role | `gtm signals 'Account Executive' --location 'United States' --max-credits N` |
 | SEO/AEO website audit (RankAI) | `gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --max-credits 35` |
@@ -128,6 +133,7 @@ Follow the matching playbook for these jobs:
 - [enrich-verify](playbooks/enrich-verify.md): a CSV or list of LinkedIn profiles in, verified work emails out.
 - [build-list](playbooks/build-list.md): a new lead list from titles, a company or a business type, then contacts for it.
 - [account-research](playbooks/account-research.md): one company researched before outreach: brief, hiring signals and decision-makers.
+- [qualify-list](playbooks/qualify-list.md): a list of people the user already has, ranked into lead tiers by role, activity and contactability.
 
 ## Without the CLI
 

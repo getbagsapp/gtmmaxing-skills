@@ -4,6 +4,7 @@ A new list of people or businesses, then contacts for the people on it.
 
 1. Pick the list type from the user's request:
    - People by job title, optionally in a country or city: `--titles` (up to 5) and `--location`.
+     Give each job title as its own `--titles`, without commas; titles match job titles, not company types, so check the returned titles and companies before buying emails.
    - Decision-makers at one company: `--company` with a domain, optionally `--titles`.
    - Local businesses: `--business-type` and `--location`; rows carry address, website and listed phone.
 
