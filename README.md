@@ -31,7 +31,7 @@ Every paid command supports a free quote and refuses to spend more than its `--m
 ## Contents
 
 - `skills/gtmmaxing/SKILL.md` - the skill, also served at https://gtmmaxing.com/skill.md
-- `skills/gtmmaxing/playbooks/` - enrich and verify, build a list, account research
+- `skills/gtmmaxing/playbooks/` - enrich and verify, build a list, account research, qualify a list, leads from a hiring signal, local businesses with weak websites
 
 Remote MCP connector for chat apps: `https://gtmmaxing.com/mcp`.
 

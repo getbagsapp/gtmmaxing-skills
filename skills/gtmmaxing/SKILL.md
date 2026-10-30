@@ -136,6 +136,8 @@ Follow the matching playbook for these jobs:
 - [build-list](playbooks/build-list.md): a new lead list from titles, a company or a business type, then contacts for it.
 - [account-research](playbooks/account-research.md): one company researched before outreach: brief, hiring signals and decision-makers.
 - [qualify-list](playbooks/qualify-list.md): a list of people the user already has, ranked into lead tiers by role, activity and contactability.
+- [hiring-signal-leads](playbooks/hiring-signal-leads.md): companies hiring for a role, such as their first SDR, then decision-makers and work emails at each.
+- [local-website-audit](playbooks/local-website-audit.md): local businesses of one type, an SEO/AEO audit of each website, ranked weakest first with the owner's contact.
 
 ## Without the CLI
 
