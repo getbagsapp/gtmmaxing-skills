@@ -8,10 +8,10 @@ The skill drives the `gtm` CLI from the [`gtmmaxing`](https://www.npmjs.com/pack
 For full setup, paste this into your agent:
 
 ```text
-Install GTMMAXING's CLI and skill, connect MCP if supported, and help me sign in: https://gtmmaxing.com/llms.txt
+Set up GTMMAXING and sign me in so I can use it in this chat: https://gtmmaxing.com/llms.txt
 ```
 
-Local agents install the CLI and their own native skill, then add MCP where supported.
+Local agents install the CLI and their own native skill, sign in once, and are ready in the same chat; MCP is added for later chats where supported.
 Hosted chat apps connect through their remote MCP settings instead.
 Setup instructions do not add routing rules to AGENTS.md, CLAUDE.md or other skills.
 
@@ -25,7 +25,7 @@ gtm whoami
 ```
 
 Use `--agent claude-code` or `--agent cursor` for those clients, and reload skills or start a new chat when needed.
-MCP connection steps are at https://gtmmaxing.com/add-to-agent/.
+In Claude Code, `claude mcp add-json --scope user gtmmaxing '{"type":"http","url":"https://gtmmaxing.com/mcp","headersHelper":"gtm auth-header"}'` reuses the CLI login, so there is no second sign-in. Other clients' MCP steps are at https://gtmmaxing.com/add-to-agent/.
 Every paid command supports a free quote and refuses to spend more than its `--max-credits` limit.
 
 ## Contents

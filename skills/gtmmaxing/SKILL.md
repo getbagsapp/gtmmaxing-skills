@@ -1,6 +1,6 @@
 ---
 name: gtmmaxing
-description: Find work emails, mobile numbers and B2B prospects; enrich lead CSVs; verify emails; research sales accounts and hiring signals; audit websites for SEO and AEO with RankAI through GTMMAXING. Use for prospect lists, company decision-makers, local business leads, LinkedIn enrichment, or account research before outreach, even when GTMMAXING is not named. Also handles GTMMAXING setup, credits, results and tool discovery. Not for general web research, writing outreach copy without data needs, local-only CSV cleanup, or developing and deploying GTMMAXING.
+description: Find work emails, mobile numbers and B2B prospects; enrich lead CSVs; verify emails; research sales accounts, hiring signals and people asking for a tool on X or Reddit; read Instagram business profiles; audit websites for SEO and AEO with RankAI through GTMMAXING. Use for prospect lists, company decision-makers, local business leads, LinkedIn enrichment, or account research before outreach, even when GTMMAXING is not named. Also handles GTMMAXING setup, credits, results and tool discovery. Not for general web research, writing outreach copy without data needs, local-only CSV cleanup, or developing and deploying GTMMAXING.
 ---
 
 # GTMMAXING
@@ -37,9 +37,16 @@ npx -y skills add getbagsapp/gtmmaxing-skills --skill gtmmaxing --global --agent
 Use `--agent claude-code` or `--agent cursor` for those clients; for another client use its supported agent identifier or native skill installation.
 Target only GTMMAXING and the current agent.
 Keep the skill's playbooks with it, and reload skills or start a new chat when the client requires it.
-If the current client supports remote MCP, configure its connection too, preserving unrelated settings; the exact client steps are at https://gtmmaxing.com/llms.txt and https://gtmmaxing.com/add-to-agent/.
-Verify CLI sign-in, skill discovery and MCP tool availability separately, and report any step the user must finish.
-When MCP is unavailable, the skill and CLI are sufficient for terminal workflows.
+Once `gtm whoami` shows a balance, GTMMAXING works in this chat through the CLI; MCP only adds native tools in later chats and is never a pending step for this one.
+If the current client supports remote MCP, add its connection for future chats, preserving unrelated settings.
+In Claude Code, reuse the CLI login so the user signs in only once and never runs /mcp:
+
+```sh
+claude mcp add-json --scope user gtmmaxing '{"type":"http","url":"https://gtmmaxing.com/mcp","headersHelper":"gtm auth-header"}'
+```
+
+Other clients' steps are at https://gtmmaxing.com/llms.txt and https://gtmmaxing.com/add-to-agent/.
+Finish setup by reporting the balance and offering a first job; report a step as pending only when the user must still act.
 
 Keep discovery guidance inside this skill.
 Do not add routing rules to AGENTS.md, CLAUDE.md, global prompts, hooks, shell profiles or other skills.
@@ -110,6 +117,9 @@ Add `--json` for one JSON object instead.
 | Recent LinkedIn posts, with dates and topics | `gtm tools run linkedin-activity --file leads.csv --input '{"topics":["automation"]}' --out activity.csv --max-credits N` |
 | Company profile and sales brief | `gtm research acme.com --max-credits N` |
 | Companies hiring for a role | `gtm signals 'Account Executive' --location 'United States' --max-credits N` |
+| People asking for a tool on X | `gtm tools run x-search --input '{"query":"\"looking for a CRM\"","within":"week"}' --max-credits 1` |
+| Reddit threads where buyers ask | `gtm tools run reddit-search --input '{"query":"best cold email tool","within":"month"}' --max-credits 1` |
+| Instagram profile and the business contact it shows | `gtm tools run instagram-profile --input '{"profile":"gymshark"}' --max-credits 1` |
 | SEO/AEO website audit (RankAI) | `gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --max-credits 35` |
 | Any other tool | `gtm tools search <words>`, `gtm tools describe <capability>`, `gtm tools run <capability> --input '<json>' --max-credits N` |
 | More rows, or every row as CSV | `gtm results <run_id> --offset 5`, `gtm results <run_id> --csv > out.csv` |
@@ -138,6 +148,7 @@ Follow the matching playbook for these jobs:
 - [qualify-list](playbooks/qualify-list.md): a list of people the user already has, ranked into lead tiers by role, activity and contactability.
 - [hiring-signal-leads](playbooks/hiring-signal-leads.md): companies hiring for a role, such as their first SDR, then decision-makers and work emails at each.
 - [local-website-audit](playbooks/local-website-audit.md): local businesses of one type, an SEO/AEO audit of each website, ranked weakest first with the owner's contact.
+- [social-intent-leads](playbooks/social-intent-leads.md): people asking for a tool on X or Reddit, the profiles behind clear identities, then their work emails.
 
 ## Without the CLI
 
