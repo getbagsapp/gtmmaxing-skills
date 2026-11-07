@@ -99,24 +99,49 @@ next: gtm results run_oPOaZE4G5MmiNFHd --csv
 
 Add `--json` for one JSON object instead.
 
+## Finding leads
+
+When the user wants prospects, start with `gtm leads`: one command that keeps searching until it has the target number of new leads with emails, or stops at the budget.
+Each lead carries the reason it fits, and the answer's `report:` line says what was rejected and why the search stopped.
+Pass the user's market as filters, not as words in a job title: `--industry`, `--size`, `--location` (where the person lives) and `--keywords` (words in the company's description).
+Add at most one signal: `--hiring-role`, `--funded`, `--like` or `--post`.
+A tool's name as the hiring role finds companies using it.
+
+```sh
+gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --target 25 --dry-run
+gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --target 25 --max-credits 100
+```
+
+The quote is an estimate, and `--max-credits` is the hard limit.
+A search with `status: running` continues on the server; run its `next:` command to wait.
+If `stopped:` says `budget`, ask before spending more; `sources_dry` means the filters or signal ran out, so suggest wider ones.
+The account's saved ICP fills any filter you leave out, and people an earlier search already found are skipped.
+Save the ICP once with `gtm workspace set-icp`, and add customers and competitors with `gtm workspace exclude --domain customer.com`.
+
 ## Commands
 
 | Job | Command |
 | --- | --- |
+| New leads with emails and why each fits | `gtm leads --titles 'Head of Sales' --industry SaaS --size 20-99 --target 25 --max-credits N` |
+| Leads from a signal | add one of `--hiring-role ROLE`, `--funded`, `--like DOMAIN`, `--post URL` |
+| Saved ICP and exclusions (free) | `gtm workspace`, `gtm workspace set-icp --titles 'Head of Sales' --industry SaaS --notes '...'`, `gtm workspace exclude --domain customer.com` |
 | Emails for LinkedIn profiles | `gtm contacts <profile>... --max-credits N` |
 | Emails for a CSV of any length | `gtm contacts --file leads.csv --out enriched.csv --max-credits N` |
 | Emails from names and companies (no LinkedIn URLs) | `gtm contacts --file names.csv --out emails.csv --max-credits N`, with `name` and `company` columns: each profile is found first |
 | LinkedIn profile from a name and company | `gtm tools run profile-finder --input '{"name":"Pedro Reis","company":"Adyen"}' --max-credits 1`, or `--file names.csv` for a list |
 | Mailbox check too | add `--verify` (extra credits per email; finding and verifying are separate choices) |
 | Mobiles too | add `--find email,phone` |
-| People by title | `gtm list --titles 'VP Sales' --location 'United States' --max-credits N` |
-| Decision-makers at a company | `gtm list --company acme.com --titles 'Head of Sales' --max-credits N` |
+| People by title and company type | `gtm list --titles 'VP Sales' --location 'United States' --industry SaaS --size 20-99 --max-credits N`; add `--page 2` for more |
+| Decision-makers at companies | `gtm list --company acme.com --company globex.com --titles 'Head of Sales' --max-credits N` |
 | Local businesses | `gtm list --business-type Dentists --location Austin --max-credits N` |
 | Emails for a list run | `gtm contacts --run-id <run_id> --max-credits N` |
 | Current role for a CSV of profiles | `gtm tools run linkedin-profile --file leads.csv --out roles.csv --max-credits N` |
 | Recent LinkedIn posts, with dates and topics | `gtm tools run linkedin-activity --file leads.csv --input '{"topics":["automation"]}' --out activity.csv --max-credits N` |
 | Company profile and sales brief | `gtm research acme.com --max-credits N` |
-| Companies hiring for a role | `gtm signals 'Account Executive' --location 'United States' --max-credits N` |
+| Companies hiring for a role, with website and size | `gtm signals 'Account Executive' --location 'United States' --industry SaaS --size 20-99 --max-credits N` |
+| Companies that just raised | `gtm tools run funding-signals --input '{"region":"US","industries":["SaaS"]}' --max-credits 1` |
+| Companies like one you name | `gtm tools run lookalike-companies --input '{"company":"vercel.com"}' --max-credits 2` |
+| Who engaged with a LinkedIn post | `gtm tools run post-engagers --input '{"post":"https://www.linkedin.com/posts/..."}' --max-credits 1` |
 | People asking for a tool on X | `gtm tools run x-search --input '{"query":"\"looking for a CRM\"","within":"week"}' --max-credits 1` |
 | Reddit threads where buyers ask | `gtm tools run reddit-search --input '{"query":"best cold email tool","within":"month"}' --max-credits 1` |
 | Instagram profile and the business contact it shows | `gtm tools run instagram-profile --input '{"profile":"gymshark"}' --max-credits 1` |
@@ -159,4 +184,4 @@ curl -s https://api.gtmmaxing.com/v1/agent/tools/gtm_account \
   -H "Authorization: Bearer $GTM_TOKEN" -H "Accept: text/plain" -d '{}'
 ```
 
-`GET https://api.gtmmaxing.com/v1/agent/tools` lists the seven tools with their JSON input schemas; paid tools take `max_credits` and `dry_run` in the JSON body.
+`GET https://api.gtmmaxing.com/v1/agent/tools` lists the tools with their JSON input schemas; paid tools take `max_credits` and `dry_run` in the JSON body.

@@ -2,46 +2,32 @@
 
 Companies hiring for a role, the decision-makers at each, and their work emails, in one CSV.
 A company hiring its first Sales Development Representative, for example, is building an outbound team and has budget for sales tools.
-When the user's request names a total budget, that is the agreed budget for the whole plan: run every step inside it without asking again, and stop only when it runs out.
+When the user's request names a total budget, that is the agreed budget: run inside it without asking again.
 
-1. Find the companies hiring for the role:
+1. Choose the roles and the company filters.
+   Founding titles such as `Founding SDR` are the strongest sign of a first hire; a plain role also returns large companies.
+   Recruiters and staffing firms are left out automatically.
 
-   ```sh
-   gtm signals 'Sales Development Representative' --location 'United States' --limit 20 --dry-run
-   gtm signals 'Sales Development Representative' --location 'United States' --limit 20 --max-credits 1
-   ```
-
-   One search returns up to 20 companies.
-   For more, search again with a nearby role or another location, and drop companies already found.
-
-2. Find each company's website domain.
-   Signal rows name the company but not its domain; use a domain you already know reliably, or search for it:
+2. Quote it:
 
    ```sh
-   gtm tools run google-search --input '{"query":"Acme official website"}' --max-credits 1
+   gtm leads --hiring-role 'Founding SDR' --hiring-role 'Founding Account Executive' --industry SaaS --size 5-249 --location 'United States' --target 25 --dry-run
    ```
 
-   Skip a company whose domain stays uncertain rather than guessing.
-
-3. Find the decision-makers at each domain, one command per company:
+3. Agree a budget with the user and run it:
 
    ```sh
-   gtm list --company acme.com --titles 'VP Sales' --titles 'Head of Revenue' --limit 3 --max-credits 2
+   gtm leads --hiring-role 'Founding SDR' --hiring-role 'Founding Account Executive' --industry SaaS --size 5-249 --location 'United States' --target 25 --max-credits 100
    ```
 
-   Keep every `run_id:`.
-   A company with no matching people costs nothing; note it and move on.
+   Without `--titles` it looks for founders and sales leaders; add `--titles` for other buyers.
 
-4. Collect the people into one file and find their emails:
+4. Save the rows:
 
    ```sh
-   gtm results <run_id>... --csv > people.csv
-   gtm contacts --file people.csv --dry-run
-   gtm contacts --file people.csv --max-credits 100 --out leads.csv
+   gtm results <run_id> --csv > leads.csv
    ```
 
-   Set `--max-credits` to what is left of the budget.
-
-5. Hand over `leads.csv` with, for each person, the company, the role it is hiring for and when it was posted, plus how many companies had no decision-maker or no domain, and the credits spent.
+5. Tell the user how many leads they got against the target, the credits spent, and the `report:` line in plain words.
 
 The playbook is done when `leads.csv` exists and the user has the counts and the cost.
