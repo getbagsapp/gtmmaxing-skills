@@ -12,13 +12,13 @@ Each lead carries the reason it fits.
    A tool's name as the hiring role finds companies using it.
    Founding titles such as `Founding SDR` are the strongest sign of a first hire; a plain role also returns large companies, and staffing firms are left out.
    Without `--titles`, a hiring search looks for founders and sales leaders.
-   Leave out customers and competitors with one `--exclude-domain acme.com` each; the user's own work domain is left out by itself.
+   Skip only companies the user asks to skip, with one `--exclude-domain acme.com` each; competitors stay in unless asked. The user's own work domain is left out by itself.
    The saved ICP fills any filter left out, and people found before are skipped.
 
 3. **Quote:**
 
    ```sh
-   gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --exclude-domain rival.com --target N --dry-run
+   gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --exclude-domain customer.com --target N --dry-run
    ```
 
    It prints expected credits, a spending ceiling, the balance, the remaining agent cap and affordable sizes.
@@ -28,7 +28,7 @@ Each lead carries the reason it fits.
 4. **Run** with the agreed budget:
 
    ```sh
-   gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --exclude-domain rival.com --target N --max-credits B
+   gtm leads --hiring-role 'Founding SDR' --industry SaaS --size 5-249 --location 'United States' --exclude-domain customer.com --target N --max-credits B
    ```
 
    A target above 100, up to 500, runs in the background as one list under one budget.

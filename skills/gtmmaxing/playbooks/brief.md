@@ -7,7 +7,7 @@ Look first, guess second, ask once, then check the rows before anyone calls them
 
 Read the request and chat, `gtm workspace` (saved ICP and exclusions), the user's files, and their site with your own tools.
 From the site take what they sell, customers they name, and where they sell.
-Then name the three closest competitors, from one search of your own when the site does not say.
+Then name the three closest competitors, from one search of your own when the site does not say; they are extra lead ideas, not exclusions.
 
 "Leads for X" means X is the seller; "leads at X" means people who work there.
 Say which one you took in your first line.
@@ -33,13 +33,14 @@ Every stage has a list that helps: use the answer to choose the list, and lead w
 | Company: industry and size | `--industry`, `--size` | Ask, best guess first |
 | Place: where the buyer lives | `--location` | Ask with no pick, unless their words, site or customers show it |
 | Why now: one signal | `--hiring-role`, `--funded`, `--like` or `--post` | Recommend from the pain |
-| Leave out: customers and the competitors you found | one `--exclude-domain` each on the search; the user's own work domain is left out by itself | Show your list in the same round |
+| Leave out: only companies the user asks to skip | one `--exclude-domain` each on the search; the user's own work domain is left out by itself | Ask once, optional, with no default |
 | How many, for how much | `--target`, `--max-credits` | Always ask, with quoted sizes |
 
 Buyers with a street address (dentists, restaurants, shops) are a local list: `gtm list --business-type Dentists --location Mumbai --dry-run`, far cheaper than `gtm leads`.
 One local search returns up to 20 businesses, so quote 20 and offer more cities or areas for more.
 `--keywords` describe the buyer's company: the seller's own category finds its competitors.
 A competitor is also a signal: people complaining about it or hiring for it are the buyers.
+Competitors stay in every list unless the user asks to skip them: their people can be buyers, partners or hires.
 
 ## Ask once
 
@@ -59,7 +60,7 @@ I took this as customers for Payroll Co (payroll for restaurants; your site name
 3. Why now?                a) Hiring staff (my pick, payroll grows)  b) Just funded  c) Just fit
 4. How many leads?         a) 30, up to <quote> credits  b) 50, up to <quote>  c) 100, up to <quote>  d) other: ___
 
-I will leave out payrollco.com, your 3 pubs, and 3 competitors: ___
+Closest competitors, also possible leads: ___. Any companies to skip, such as current customers?
 Reply like `1b 2a 3a 4b`.
 ```
 
@@ -88,7 +89,7 @@ When the user says to decide, decide, say your picks in one line, and quote.
 ## Check the rows
 
 Read every row, free with `gtm results <run_id> --csv`, and sort them into fits, unclear and does not fit.
-Reject near neighbors: the seller's own people, competitors, agencies and consultants, and titles that only share a word with the buyer.
+Mark near neighbors for the user: competitors, agencies and consultants, and titles that only share a word with the buyer.
 Report "6 of 10 fit", list the rejected ones with the reason, and call a blank verdict inconclusive.
 Deliver every row; lead with the ones to contact and mark the rest, so the user decides.
 Then fix the filter that let the wrong rows in and quote replacements, so the user gets the number of good leads they asked for.
