@@ -11,6 +11,7 @@ Posts are the signal; contacts come only from people whose identity the post or 
    Reddit supports words, phrases, AND/OR/NOT, exclusions, subreddit:, author:, title: and selftext:; X-only operators are refused.
    Reddit checks full titles/bodies and dates, dedupes threads and follows supplier cursors for at most three pages; counts and exclusions remain in saved results even when nothing qualifies.
    The server refuses unsupported operators before spending.
+   One X post: `post-engagers`, then `x-accounts` with the handles to read who they are.
 
 2. Quote the searches, one per phrase and site:
 

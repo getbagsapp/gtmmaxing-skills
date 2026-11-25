@@ -22,12 +22,12 @@ When the user names another tool or account for the job, use that one and offer 
 | The user wants | Start with | Playbook |
 | --- | --- | --- |
 | A GTM plan, launch, first customers, "who should we sell to" | Plan first, free | [go-to-market](playbooks/go-to-market.md) |
-| A number of leads with emails, with or without a signal: companies hiring a role, funded, lookalike, post engagers | `gtm leads --titles 'Head of Sales' --industry SaaS --size 20-99 --target N --dry-run` | [find-leads](playbooks/find-leads.md) |
+| A number of leads with emails, with or without a signal: companies hiring a role, funded, lookalike, LinkedIn post engagers | `gtm leads --titles 'Head of Sales' --industry SaaS --size 20-99 --target N --dry-run` | [find-leads](playbooks/find-leads.md) |
 | A list to review before buying emails; decision-makers at named companies | `gtm list --company acme.com --titles 'Head of Sales' --dry-run` | [build-list](playbooks/build-list.md) |
 | Emails or mobiles for profiles, names or a CSV | `gtm contacts --file leads.csv --dry-run` | [enrich-verify](playbooks/enrich-verify.md) |
 | People they already have, ranked or qualified | Read the file first, free | [qualify-list](playbooks/qualify-list.md) |
 | One company, or a sales call to prepare | `gtm research acme.com --dry-run` | [account-research](playbooks/account-research.md) |
-| People asking, comparing or complaining on X or Reddit; Instagram brands | `gtm tools run x-search --input '{"query":"looking for a CRM","within":"week"}' --dry-run` | [social-intent-leads](playbooks/social-intent-leads.md) |
+| People asking, comparing or complaining on X or Reddit; people behind an X post; Instagram brands | `gtm tools run x-search --input '{"query":"looking for a CRM","within":"week"}' --dry-run` | [social-intent-leads](playbooks/social-intent-leads.md) |
 | Local businesses, with or without a website audit | `gtm list --business-type Dentists --location Austin --dry-run` | [local-website-audit](playbooks/local-website-audit.md) |
 | Keywords, rankings, competitors, ads, backlinks, AI visibility, site audits | Pick the tool in the playbook | [seo-research](playbooks/seo-research.md) |
 | Alerts when accounts, contacts or topics change | `gtm watch create --name Sales --company acme.com --hiring SDR --dry-run` | [monitor](playbooks/monitor.md), with [signal rules](playbooks/monitor-signals.md) |
