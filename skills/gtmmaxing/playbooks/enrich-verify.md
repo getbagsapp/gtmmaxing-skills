@@ -1,13 +1,14 @@
-# Enrich and verify a lead list
+# Enrich a lead list
 
 A CSV or list of LinkedIn profiles in, a CSV of work emails out, in one command.
-`--verify` adds a mailbox check on each found email for extra credits; include it when the user wants verified emails, and leave it out when they asked to skip verification.
+Finding an email already includes the live mailbox check, so every returned email has been checked.
+`--verify` adds an optional extra recheck for extra credits per email; include it only when the user asks for a recheck.
 The CLI reads the profile column, drops duplicates, and runs the file in batches that share one `--max-credits` budget, so the file can be any length.
 
 1. Quote the file:
 
    ```sh
-   gtm contacts --file leads.csv --verify --dry-run
+   gtm contacts --file leads.csv --dry-run
    ```
 
    Check the `profiles:`, `duplicates:` and `skipped:` lines against what the user expects.
@@ -15,11 +16,12 @@ The CLI reads the profile column, drops duplicates, and runs the file in batches
    Add `--find email,phone` only when the user asked for mobiles too.
 
 2. Tell the user the profile count, the `quote:` and the `balance:`, and agree a budget.
+   A total budget already in the request is the agreed budget; `B` below stands for it.
 
 3. Run it with that budget and an output file:
 
    ```sh
-   gtm contacts --file leads.csv --verify --max-credits 400 --out enriched.csv
+   gtm contacts --file leads.csv --max-credits B --out enriched.csv
    ```
 
    The command waits until every batch has finished.
@@ -35,6 +37,6 @@ The CLI reads the profile column, drops duplicates, and runs the file in batches
 
 5. Hand over `enriched.csv` (columns `name`, `title`, `email`, `verdict`, `url`, `status`) with the counts and the credits spent.
    Report `run_cost:` as the credits spent when the answer has it: it covers every batch, including ones charged before a rerun, while `cost:` counts only this command.
-   In the `verdict` column, `deliverable` means the mailbox check accepted the address and `invalid` means it rejected it.
+   In the `verdict` column, `verified` means the mailbox check accepted the address; a blank verdict means the check was inconclusive.
 
 The playbook is done when `enriched.csv` exists and the user has the found count, the verdict counts and the cost.

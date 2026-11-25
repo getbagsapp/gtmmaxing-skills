@@ -3,23 +3,33 @@
 The user sells something and wants people who are asking for it right now: on X, on Reddit, or among Instagram brands and creators.
 Posts are the signal; contacts come only from people whose identity the post or their profile makes clear.
 
-1. Agree the phrases for free.
-   Ask what the user sells and draft two to four phrases a buyer would write, such as `"looking for a CRM"`, `"alternative to HubSpot"` or `"recommend a cold email tool"`.
-   X matches every bare word, so quote each phrase or join alternatives with `OR`.
+1. Identify the topic and the kind of result the user wants.
+   X and Reddit search default to `intent: "buyers"`: plain topics expand into explicit vocabulary aliases (X also adds buyer-language queries), then the server checks relevance and keeps requests, comparisons and first-person problems with quoted evidence.
+   For example, `Looking for GTM solutions` searches related GTM language rather than requiring the literal word `solutions` in every post.
+   Explicit X syntax stays literal: quote phrases, join alternatives with `OR`, and group alternatives before applying operators.
+   Use `intent: "posts"` when the user wants all matching posts, such as competitor mentions or topic research, without buyer qualification.
+   Reddit supports words, phrases, AND/OR/NOT, exclusions, subreddit:, author:, title: and selftext:; X-only operators are refused.
+   Reddit checks full titles/bodies and dates, dedupes threads and follows supplier cursors for at most three pages; counts and exclusions remain in saved results even when nothing qualifies.
+   The server refuses unsupported operators before spending.
 
 2. Quote the searches, one per phrase and site:
 
    ```sh
-   gtm tools run x-search --input '{"query":"\"looking for a CRM\"","within":"week"}' --dry-run
-   gtm tools run reddit-search --input '{"query":"best CRM for a small team","within":"month"}' --dry-run
+   gtm tools run x-search --input '{"query":"Looking for GTM solutions","intent":"buyers","within":"week"}' --dry-run
+   gtm tools run x-search --input '{"query":"\"looking for a CRM\"","intent":"posts","within":"week"}' --dry-run
+   gtm tools run reddit-search --input '{"query":"CRM","intent":"buyers","within":"month"}' --dry-run
    ```
 
-   Each nonempty search is one charge for up to 20 posts.
+   X and Reddit buyer search cost one credit only when at least one post qualifies, for up to 20 delivered posts; bounded supplier calls are included in that search.
+   Literal X and Reddit searches cost one credit when they return matching posts.
    Tell the user the quotes and the total, and agree one budget.
 
-3. Run the agreed searches with `--max-credits`, then read every post yourself before going further.
-   Drop vendors advertising their own product, agencies, giveaways and replies that only recommend something; many matching posts are sellers, not buyers.
-   Keep posts where a person asks, compares or complains, and note what they asked for.
+3. Run within the user's authorized credit budget and review each delivered post before going further.
+   X and Reddit buyer rows include `signal`, `evidence` and `reason`; the summary reports qualified needs against unique candidates, rather than treating raw posts as leads.
+   Qualification uses conservative English text rules and explicit vocabulary expansions, so nuanced requests and other languages can be missed.
+   A stated need does not establish a budget, purchase timeline or permission for outreach.
+   Read the exact evidence and linked post; discard any remaining ads, hiring posts, networking requests or resolved needs.
+   An empty qualified result is free even if the supplier returned posts; widen the date window or adjust the topic rather than accepting irrelevant filler.
 
 4. Turn kept X posts into people only when the identity is clear.
    When the post, the author's display name or their linked profile names their company, find the LinkedIn profile:

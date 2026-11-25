@@ -18,10 +18,10 @@ When the user's request names a total budget, that is the agreed budget for the 
 
    ```sh
    gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --dry-run
-   gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --max-credits 35
+   gtm tools run seo-aeo-audit --input '{"url":"example.com"}' --max-credits 39
    ```
 
-   Each completed audit costs 35 credits, so the budget decides how many sites to audit; audit in list order until it runs out.
+   Each completed audit costs 39 credits, so the budget decides how many sites to audit; audit in list order until it runs out.
    An audit can take several minutes: check each saved run with `gtm results <run_id>` instead of starting it again.
    A failed audit is free.
 
@@ -31,7 +31,7 @@ When the user's request names a total budget, that is the agreed budget for the 
 
    ```sh
    gtm list --company example.com --titles 'Owner' --limit 1 --max-credits 2
-   gtm contacts --run-id <run_id> --max-credits 1
+   gtm contacts --run-id <run_id> --target 1 --max-credits 1
    ```
 
    Many small businesses have no findable owner; keep the listed phone as their contact.

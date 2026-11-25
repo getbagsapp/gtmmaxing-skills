@@ -1,6 +1,6 @@
 # GTMMAXING skill
 
-Agent skill for [GTMMAXING](https://gtmmaxing.com): find work emails and mobiles for LinkedIn profiles, verify emails, build lead lists, research companies, find companies hiring for a role and audit websites for SEO/AEO with RankAI, on your prepaid GTMMAXING credits.
+Agent skill for [GTMMAXING](https://gtmmaxing.com): find work emails and mobiles for LinkedIn profiles, verify emails, build lead lists, research companies, find companies hiring for a role, research keywords, rankings and AI visibility, and audit websites for SEO and AEO, on your prepaid GTMMAXING credits.
 The skill drives the `gtm` CLI from the [`gtmmaxing`](https://www.npmjs.com/package/gtmmaxing) npm package.
 
 ## Install
